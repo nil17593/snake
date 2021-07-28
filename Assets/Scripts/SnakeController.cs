@@ -31,7 +31,7 @@ public class SnakeController : MonoBehaviour
     [SerializeField] private int decreasScore;
    
     [Header("Buttons")]
-    [SerializeField] Button buttonRestart;
+    //[SerializeField] Button buttonRestart;
     [SerializeField] Button buttonMenu;
     [SerializeField] Button buttonResume;
 
@@ -40,7 +40,6 @@ public class SnakeController : MonoBehaviour
     [SerializeField] string lobby;
 
     [Header("Created gameobjects")]
-    [SerializeField] GameObject pauseUI;
     [SerializeField] GameObject gameOver;
 
     [Header("Input Keys")]
@@ -52,14 +51,12 @@ public class SnakeController : MonoBehaviour
     [Header("Bounds for screen wrapping")]
     private float maxX, maxY, minX, minY;
 
-    public static bool gameIsPaused;
     private float snakeFaceAngle;
 
     private void Awake()
     {
-        buttonRestart.onClick.AddListener(ReloadCurrentScene);
+        //buttonRestart.onClick.AddListener(ReloadCurrentScene);
         buttonMenu.onClick.AddListener(LobbyScene);
-        //buttonResume.onClick.AddListener(Resume);
     }
     private void Start()
     {
@@ -70,20 +67,14 @@ public class SnakeController : MonoBehaviour
         maxX = bounds.max.x;
         minX = bounds.min.x;
         maxY = bounds.max.y;
-        minY = bounds.min.y;  
+        minY = bounds.min.y;
     }
     private void Update()
     {
         SnakeChangePos();
         ScreenWrap();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            gameIsPaused = !gameIsPaused;
-            PauseGame();
-            this.gameObject.SetActive(false);
-            pauseUI.gameObject.SetActive(true);
-        }
+       
         //upInput = Input.GetKeyDown(KeyCode.UpArrow);
         //downInput = Input.GetKeyDown(KeyCode.DownArrow);
         //rightInput = Input.GetKeyDown(KeyCode.RightArrow);
@@ -104,31 +95,8 @@ public class SnakeController : MonoBehaviour
         //}
     }
 
-    //Reloads current scene
-    void ReloadCurrentScene()
-    {
-        {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.buildIndex);
-        }
-    }
     //game pause
-    void PauseGame()
-    {
-        if (gameIsPaused)
-        {
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
-    }
-    //game resumes
-    void Resume()
-    {
-        Time.timeScale = 1f;
-    }
+    
 
     //load lobby scene
     private void LobbyScene()
